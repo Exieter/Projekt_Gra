@@ -13,4 +13,6 @@ SOURCES += \
     main_ZOMBIE_SHOOTER_GAME.cpp
 
 HEADERS += \
+    Menu.h \
+    Player.h \
     Zombie.h

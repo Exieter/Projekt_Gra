@@ -7,22 +7,37 @@
 
 class Zombie : public sf::Sprite
 {
-private:
-    
-    
-public:
+protected:
+    int hp;
+    int damage;
+    std::string path_to_graphics;
+    int amount_of_zombies;
 
-    
+public:
+    virtual void spawn_zombie(int amount_of_zombies);
+    void move_zombie(const sf::Time &elapsed);
+
 };
 
 class SmallZombie : public Zombie
 {
-private:
-    
-    
 public:
-SmallZombie(int hp, int damage, std::string path_to_graphics);
-    
+    SmallZombie(int hp_, int damage_, std::string path_to_graphics_);//w nim poruszanie sie 
+    void spawn_zombie(int amount_of_zombies);
+};
+
+class MediumZombie : public Zombie
+{
+public:
+    MediumZombie(int hp_, int damage_, std::string path_to_graphics_);
+    void spawn_zombie(int amount_of_zombies);
+};
+
+class BigZombie : public Zombie
+{
+public:
+    BigZombie(int hp_, int damage_, std::string path_to_graphics_);
+    void spawn_zombie(int amount_of_zombies);
 };
 
 #endif // ZOMBIE_H
