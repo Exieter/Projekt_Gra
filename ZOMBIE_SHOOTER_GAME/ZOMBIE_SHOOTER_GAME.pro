@@ -10,9 +10,9 @@ CONFIG(debug, debug|release){
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
 }
 SOURCES += \
+    grajj.cpp \
     main_ZOMBIE_SHOOTER_GAME.cpp
 
 HEADERS += \
     Menu.h \
-    Player.h \
-    Zombie.h
+    grajj.h

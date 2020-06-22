@@ -1,21 +1,46 @@
-#ifndef ZOMBIE_H
-#define ZOMBIE_H
+#ifndef GRAJJ_H
+#define GRAJJ_H
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <iostream>
 
-class Zombie : public sf::Sprite
+class Graj : public sf::Sprite
+{
+protected:
+    sf::Texture texture;
+    sf::Sprite sprite;
+public:
+  Graj();
+  void wynik();
+  bool czyPrzegrana();
+  //virtual void poruszanie();
+};
+
+class Player : public Graj
+{
+private:
+    int hpPlayer;
+
+public:
+    Player(sf::Texture &texture_);
+    void rysuj(sf::RenderWindow &window_) const;
+    void poruszanie();
+    int odejmijHP();
+};
+
+
+
+class Zombie : public Graj
 {
 protected:
     int hp;
     int damage;
-    std::string path_to_graphics;
-    int amount_of_zombies;
 
 public:
-    virtual void spawn_zombie(int amount_of_zombies);
-    void move_zombie(const sf::Time &elapsed);
+    Zombie(sf::Texture &texture_);
+   // virtual void rysuj(sf::RenderWindow &window_) const;
+    void poruszanie();
 
 };
 
@@ -39,5 +64,11 @@ public:
     BigZombie(int hp_, int damage_, std::string path_to_graphics_);
     void spawn_zombie(int amount_of_zombies);
 };
+class Sciana : public Graj
+{
+public:
 
-#endif // ZOMBIE_H
+};
+
+
+#endif // GRAJJ_H

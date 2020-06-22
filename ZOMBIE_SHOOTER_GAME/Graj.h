@@ -1,11 +1,22 @@
-#ifndef ZOMBIE_H
-#define ZOMBIE_H
+#ifndef GRAJ_H
+#define GRAJ_H
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <iostream>
 
-class Zombie : public sf::Sprite
+class Graj : public sf::Sprite
+{
+public:
+  Graj();
+};
+
+class Player : public Graj
+{
+public:
+    Player(sf::Texture &texture);
+};
+
+class Zombie : public Graj
 {
 protected:
     int hp;
@@ -22,7 +33,7 @@ public:
 class SmallZombie : public Zombie
 {
 public:
-    SmallZombie(int hp_, int damage_, std::string path_to_graphics_);//w nim poruszanie sie 
+    SmallZombie(int hp_, int damage_, std::string path_to_graphics_);//w nim poruszanie sie
     void spawn_zombie(int amount_of_zombies);
 };
 
@@ -40,4 +51,6 @@ public:
     void spawn_zombie(int amount_of_zombies);
 };
 
-#endif // ZOMBIE_H
+
+#endif // GRAJ_H
+
