@@ -4,17 +4,40 @@
 int main() {
 
 
-    sf::RenderWindow window(sf::VideoMode(900, 800), "Tytul");
+    sf::RenderWindow window(sf::VideoMode(1100, 900), "Tytul");
 
     //wczytaj tekstury
     sf::Texture texturePlayer;
-    if (!texturePlayer.loadFromFile("E:\\POLIBUDA\\II\\PSIO\\Prace domowe\\10 labirynt\\build-LABIRYNT-Desktop_Qt_5_13_2_MinGW_64_bit-Debug\\debug\\grass.png")) {
-        std::cout << "Could not load texture 1" << std::endl;
+    if (!texturePlayer.loadFromFile("textures\\player.png")) {
+        std::cout << "Could not load texture player.png" << std::endl;
         return 1;
     }
+    sf::Texture textureZombie;
+    if (!textureZombie.loadFromFile("textures\\zombie_move.png")) {
+        std::cout << "Could not load texture zombie_move.png" << std::endl;
+        return 1;
+    }
+    sf::Texture textureSciana;
+    if (!textureSciana.loadFromFile("textures\\wall.png")) {
+        std::cout << "Could not load texture wall.png" << std::endl;
+        return 1;
+    }
+    textureSciana.setRepeated(true);
+
+    sf::Texture texturePodloga;
+    if (!texturePodloga.loadFromFile("textures\\FLOOR3.png")) {
+        std::cout << "Could not load texture FLOOR3.png" << std::endl;
+        return 1;
+    }
+    texturePodloga.setRepeated(true);
+
+
     //obiekty
     Player player(texturePlayer);
-
+    SmallZombie smallzombie(textureZombie);
+    MediumZombie mediumzombie(textureZombie);
+    BigZombie bigzombie(textureZombie);
+    Otoczenie otoczenie(textureSciana,texturePodloga);
 
 
 
@@ -30,8 +53,15 @@ int main() {
                 window.close();
         }
 
+
+        //rysowanie
         window.display();
+            otoczenie.rysuj(window);
         player.rysuj(window);
+        smallzombie.rysuj(window);
+        mediumzombie.rysuj(window);
+        bigzombie.rysuj(window);
+
     }
 ;
     return 0;

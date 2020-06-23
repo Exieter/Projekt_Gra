@@ -15,7 +15,7 @@ public:
   void wynik();
   bool czyPrzegrana();
   //virtual void poruszanie();
-  //void rysuj(sf::RenderWindow &window_) const;
+  void rysuj(sf::RenderWindow &window_) const;
 };
 
 class Player : public Graj
@@ -25,8 +25,7 @@ private:
 
 public:
     Player(sf::Texture &texture_);
-    void rysuj(sf::RenderWindow &window_) const;
-    void poruszanie();
+    void poruszanie(sf::Event &event);
     int odejmijHP();
 };
 
@@ -38,8 +37,7 @@ protected:
 
 
 public:
-    Zombie(sf::Texture &texture_);
-    void rysuj();
+    Zombie();
     void poruszanie();
 
 };
@@ -49,8 +47,7 @@ class SmallZombie : public Zombie
     int hp = 20;
     int damage = 5;
 public:
-    SmallZombie(int hp_, int damage_, std::string path_to_graphics_);//w nim poruszanie sie
-    void spawn_zombie(int amount_of_zombies);
+    SmallZombie(sf::Texture &texture_);//w nim poruszanie sie
 };
 
 class MediumZombie : public Zombie
@@ -58,8 +55,7 @@ class MediumZombie : public Zombie
     int hp = 50;
     int damage = 10;
 public:
-    MediumZombie(int hp_, int damage_, std::string path_to_graphics_);
-    void spawn_zombie(int amount_of_zombies);
+    MediumZombie(sf::Texture &texture_);
 };
 
 class BigZombie : public Zombie
@@ -67,14 +63,21 @@ class BigZombie : public Zombie
     int hp = 100;
     int damage = 30;
 public:
-    BigZombie(int hp_, int damage_, std::string path_to_graphics_);
-    void spawn_zombie(int amount_of_zombies);
+    BigZombie(sf::Texture &texture_);
 };
-class Sciana : public Graj
+
+
+
+
+class Otoczenie : public sf::Sprite
 {
+    std::vector<sf::Sprite> sciany;
+    sf::Sprite podlogasprite;
+    sf::Texture podlogatexture;
+    sf::Texture texture;
 public:
-    Sciana(sf::Texture &texture_);
-    void rysuj();
+    Otoczenie(sf::Texture &texture_,sf::Texture &podloga_);
+    void rysuj(sf::RenderWindow &window_);
 };
 
 
