@@ -43,16 +43,17 @@ int main() {
 
 
     while (window.isOpen()) {
-        sf::Clock clock;
         sf::Event event;
+        sf::Clock clock;
 
 
 
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
+        sf::Time elapsed = clock.restart();
+                            player.poruszanie(event,elapsed);
         }
-
 
         //rysowanie
         window.display();

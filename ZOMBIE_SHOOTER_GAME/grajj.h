@@ -4,6 +4,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cmath>
 
 class Graj : public sf::Sprite
 {
@@ -23,9 +24,11 @@ class Player : public Graj
 private:
     int hpPlayer;
 
+    int moveSpeed = 50000;
+
 public:
     Player(sf::Texture &texture_);
-    void poruszanie(sf::Event &event);
+    void poruszanie(sf::Event &event,sf::Time &elapsed);
     int odejmijHP();
 };
 
