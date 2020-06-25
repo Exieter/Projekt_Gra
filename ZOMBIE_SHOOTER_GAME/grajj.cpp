@@ -21,6 +21,8 @@ Zombie::Zombie()
 {
 
 }
+
+
 SmallZombie::SmallZombie(sf::Texture &texture_)
 {
     this->texture=texture_;
@@ -28,7 +30,7 @@ SmallZombie::SmallZombie(sf::Texture &texture_)
     sprite.setTexture(texture);
     sprite.setScale(0.2, 0.2);
     sprite.setTextureRect(sf::IntRect(24,70,215,207));
-   // sprite.setPosition(320,320);
+    // sprite.setPosition(320,320);
 }
 
 MediumZombie::MediumZombie(sf::Texture &texture_)
@@ -148,100 +150,210 @@ void Graj::rysuj(sf::RenderWindow &window_) const
 void Otoczenie::rysuj(sf::RenderWindow &window_)
 {
     window_.draw(podlogasprite);
- for(auto &el : sciany)
- {
-     window_.draw(el);
- }
+    for(auto &el : sciany)
+    {
+        window_.draw(el);
+    }
 }
-void Player::poruszanie(sf::Event &event,sf::Time &elapsed)
+
+std::vector<sf::Sprite> Otoczenie::getScianyVectorSprite() const
+{
+    return sciany;
+}
+void Player::poruszanie(std::vector<sf::Sprite> &sciany,sf::Time &elapsed)
 {
     sprite.setOrigin( (sprite.getLocalBounds().height / 2)-11 , (sprite.getLocalBounds().width / 2) - 10); // potrzebne do rotacji tesktury
-     sf::FloatRect player_bounds = sprite.getGlobalBounds();
-if((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) ||(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
-{
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        sprite.setRotation(-45);
-        if(player_bounds.left+player_bounds.width < 1100)
-        {
-         sprite.move( moveSpeed*elapsed.asSeconds(),0);
-        }
-        if(player_bounds.top > 0)
-        {
-         sprite.move(0,- moveSpeed*elapsed.asSeconds());
-        }
-     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        sprite.setRotation(405);
-        if(player_bounds.left+player_bounds.width < 1100)
-        {
-         sprite.move( moveSpeed*elapsed.asSeconds(),0);
-        }
-        if(player_bounds.top + player_bounds.height < 900)
-        {
-         sprite.move(0, moveSpeed*elapsed.asSeconds());
-        }
-     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        sprite.setRotation(215);
-        if(player_bounds.left > 0)
-        {
-         sprite.move( -moveSpeed*elapsed.asSeconds(),0);
-        }
-        if(player_bounds.top  > 0)
-        {
-         sprite.move(0, -moveSpeed*elapsed.asSeconds());
-        }
-     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-         sprite.setRotation(135);
+    sf::FloatRect player_bounds = sprite.getGlobalBounds();
 
-        if(player_bounds.left > 0)
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) ||(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
+    {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-         sprite.move( -moveSpeed*elapsed.asSeconds(),0);
-        }
-        if(player_bounds.top + player_bounds.height < 900)
+            sprite.setRotation(-45);
+            if(player_bounds.left+player_bounds.width < 1100)
+            {
+                sprite.move( moveSpeed*elapsed.asSeconds(),0);
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move( -moveSpeed*elapsed.asSeconds(),0);
+                    }
+                }
+            }
+            if(player_bounds.top > 0)
+            {
+                sprite.move(0,- moveSpeed*elapsed.asSeconds());
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move(0, moveSpeed*elapsed.asSeconds());
+                    }
+                }
+            }
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-         sprite.move(0, moveSpeed*elapsed.asSeconds());
+            sprite.setRotation(405);
+            if(player_bounds.left+player_bounds.width < 1100)
+            {
+                sprite.move( moveSpeed*elapsed.asSeconds(),0);
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move(- moveSpeed*elapsed.asSeconds(),0);
+                    }
+                }
+
+            }
+            if(player_bounds.top + player_bounds.height < 900)
+            {
+                sprite.move(0, moveSpeed*elapsed.asSeconds());
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move(0, -moveSpeed*elapsed.asSeconds());
+                    }
+                }
+            }
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            sprite.setRotation(215);
+            if(player_bounds.left > 0)
+            {
+                sprite.move( -moveSpeed*elapsed.asSeconds(),0);
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move( moveSpeed*elapsed.asSeconds(),0);
+                    }
+                }
+            }
+            if(player_bounds.top  > 0)
+            {
+                sprite.move(0, -moveSpeed*elapsed.asSeconds());
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move(0, moveSpeed*elapsed.asSeconds());
+                    }
+                }
+            }
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            sprite.setRotation(135);
+
+            if(player_bounds.left > 0)
+            {
+                sprite.move( -moveSpeed*elapsed.asSeconds(),0);
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move( moveSpeed*elapsed.asSeconds(),0);
+                    }
+                }
+            }
+            if(player_bounds.top + player_bounds.height < 900)
+            {
+                sprite.move(0, moveSpeed*elapsed.asSeconds());
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move(0, -moveSpeed*elapsed.asSeconds());
+                    }
+                }
+            }
         }
-     }
-} else{
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    } else
+    {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
             if(player_bounds.top>0)
             {
                 sprite.setRotation(270);
-             sprite.move(0, -moveSpeed*elapsed.asSeconds());
+                sprite.move(0, -moveSpeed*elapsed.asSeconds());
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move(0, moveSpeed*elapsed.asSeconds());
+                    }
+                }
             }
-         }
+        }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
             if(player_bounds.top+player_bounds.height<900)
             {
                 sprite.setRotation(-270);
-             sprite.move(0, moveSpeed*elapsed.asSeconds());
+                sprite.move(0, moveSpeed*elapsed.asSeconds());
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move(0,-moveSpeed*elapsed.asSeconds());
+                    }
+                }
             }
-         }
+        }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
             if(player_bounds.left>0)
             {
                 sprite.setRotation(180);
-               sprite.move( -moveSpeed*elapsed.asSeconds(),0);
+                sprite.move( -moveSpeed*elapsed.asSeconds(),0);
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move( moveSpeed*elapsed.asSeconds(),0);
+                    }
+                }
             }
-         }
+        }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
             if(player_bounds.left+player_bounds.width < 1100)
             {
                 sprite.setRotation(0);
-             sprite.move( moveSpeed*elapsed.asSeconds(),0);
+                sprite.move( moveSpeed*elapsed.asSeconds(),0);
+                for(auto &el : sciany)
+                {
+                    if(el.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+                    {
+                        sprite.move( -moveSpeed*elapsed.asSeconds(),0);
+                    }
+                }
             }
-         }
+        }
+    }
+
 }
 
+sf::Sprite Player::getSpritePlayer() const
+{
+    return sprite;
+}
+void Zombie::poruszanie( sf::Sprite &player_sprite, sf::Time &elapsed )
+{
+    angle_zombie_player_to_move = atan2(player_sprite.getPosition().y - sprite.getPosition().y, player_sprite.getPosition().x - sprite.getPosition().x);
 
+    sprite.setOrigin( (sprite.getLocalBounds().height / 2) , (sprite.getLocalBounds().width / 2) ); // os obrotu na srodku tekstury
+    player_sprite.setOrigin( (player_sprite.getLocalBounds().height / 2) , (player_sprite.getLocalBounds().width / 2));
 
+    if(!sprite.getGlobalBounds().intersects(player_sprite.getGlobalBounds()))
+    {
+        sprite.move(std::cos(angle_zombie_player_to_move)* elapsed.asSeconds() * moveSpeedZombie, std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
+    }
+     angle_zombie_player_to_face = angle_zombie_player_to_move * 57.32; // 57.32 == 360/2pi
+
+    sprite.setRotation(angle_zombie_player_to_face);
 }
 
 

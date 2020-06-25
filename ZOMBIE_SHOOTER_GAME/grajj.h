@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+//#include <windows.h>
 
 class Graj : public sf::Sprite
 {
@@ -22,14 +23,15 @@ public:
 class Player : public Graj
 {
 private:
-    int hpPlayer;
+    int hpPlayer=100;
 
-    int moveSpeed = 50000;
+    int moveSpeed = 40000;
 
 public:
     Player(sf::Texture &texture_);
-    void poruszanie(sf::Event &event,sf::Time &elapsed);
+    void poruszanie(std::vector<sf::Sprite> &sciany, sf::Time &elapsed);
     int odejmijHP();
+    sf::Sprite getSpritePlayer() const;
 };
 
 
@@ -37,34 +39,43 @@ public:
 class Zombie : public Graj
 {
 protected:
+    int moveSpeedZombie=20000;
 
+float angle_zombie_player_to_move = 0; //  do poruszania w strone gracza
+float angle_zombie_player_to_face = 0; // do rotacji zombie w strone gracza
 
 public:
     Zombie();
-    void poruszanie();
+    void poruszanie(sf::Sprite &player_sprite,sf::Time &elapsed );
 
 };
 
 class SmallZombie : public Zombie
 {
+private:
     int hp = 20;
     int damage = 5;
+int moveSpeedZombie=200000;
 public:
-    SmallZombie(sf::Texture &texture_);//w nim poruszanie sie
+    SmallZombie(sf::Texture &texture_);
 };
 
 class MediumZombie : public Zombie
 {
+private:
     int hp = 50;
     int damage = 10;
+
 public:
     MediumZombie(sf::Texture &texture_);
 };
 
 class BigZombie : public Zombie
 {
+private:
     int hp = 100;
     int damage = 30;
+
 public:
     BigZombie(sf::Texture &texture_);
 };
@@ -74,13 +85,17 @@ public:
 
 class Otoczenie : public sf::Sprite
 {
+private:
     std::vector<sf::Sprite> sciany;
+    sf::Texture texture; // sciana
+
     sf::Sprite podlogasprite;
-    sf::Texture podlogatexture;
-    sf::Texture texture;
+    sf::Texture podlogatexture; // podloga
+
 public:
     Otoczenie(sf::Texture &texture_,sf::Texture &podloga_);
     void rysuj(sf::RenderWindow &window_);
+    std::vector<sf::Sprite> getScianyVectorSprite() const;
 };
 
 
