@@ -25,7 +25,7 @@ class Player : public Graj
 private:
     int hpPlayer=100;
 
-    int moveSpeed = 40000;
+    int moveSpeed = 30000;
 
 public:
     Player(sf::Texture &texture_);
@@ -39,14 +39,17 @@ public:
 class Zombie : public Graj
 {
 protected:
-    int moveSpeedZombie=20000;
+    int moveSpeedZombie=25000;
 
 float angle_zombie_player_to_move = 0; //  do poruszania w strone gracza
 float angle_zombie_player_to_face = 0; // do rotacji zombie w strone gracza
 
+int random_position = rand()%4;
+
 public:
     Zombie();
-    void poruszanie(sf::Sprite &player_sprite,sf::Time &elapsed );
+    void poruszanie(sf::Sprite &player_sprite,std::vector<sf::Sprite> &sciany_sprites,sf::Time &elapsed );
+    void setZombiePosition();
 
 };
 

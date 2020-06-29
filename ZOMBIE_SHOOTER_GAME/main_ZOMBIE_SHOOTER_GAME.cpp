@@ -42,9 +42,7 @@ std::vector<sf::Sprite> sciany_sprites = otoczenie.getScianyVectorSprite();
 //vector
 std::vector<std::unique_ptr<Zombie>> zombieVector;
 
-zombieVector.emplace_back(new SmallZombie(textureZombie));
-zombieVector.emplace_back(new MediumZombie(textureZombie));
-zombieVector.emplace_back(new BigZombie(textureZombie));
+
 //zmienne
 float time_to_spawn_smallzombie=0;
 float time_to_spawn_mediumzombie=0;
@@ -56,7 +54,7 @@ float time_enemies_bigzombie=0;
 
     while (window.isOpen()) {
         sf::Event event;
-//spawn zombies:
+//spawn zombies in time:
         //smallzombie
         sf::Clock clock_to_spawn_smallzombie;
 
@@ -66,6 +64,7 @@ float time_enemies_bigzombie=0;
             if(time_to_spawn_smallzombie >= 0.001)
             {
             zombieVector.emplace_back(new SmallZombie(textureZombie));
+            zombieVector.back()->setZombiePosition();
             time_to_spawn_smallzombie = 0;
             }
         //mediumzombie
@@ -77,6 +76,7 @@ float time_enemies_bigzombie=0;
                  if(time_to_spawn_mediumzombie >= 0.05)
                  {
                  zombieVector.emplace_back(new MediumZombie(textureZombie));
+                 zombieVector.back()->setZombiePosition();
                  time_to_spawn_mediumzombie = 0;
                  }
          //bigzombie
@@ -88,6 +88,7 @@ float time_enemies_bigzombie=0;
                      if(time_to_spawn_bigzombie >= 0.1)
                      {
                      zombieVector.emplace_back(new BigZombie(textureZombie));
+                     zombieVector.back()->setZombiePosition();
                      time_to_spawn_bigzombie = 0;
                      }
 
@@ -111,7 +112,7 @@ float time_enemies_bigzombie=0;
 
         for(auto &el : zombieVector)
         {
-            el->poruszanie(player_sprite,elapsed);
+            el->poruszanie(player_sprite,sciany_sprites,elapsed);
         }
 //rysowanie
         window.display();
