@@ -11,6 +11,13 @@ int main() {
         std::cout << "Could not load texture player.png" << std::endl;
         return 1;
     }
+
+    sf::Texture textureBullet;
+    if (!textureBullet.loadFromFile("textures\\naboj.jpg")) {
+        std::cout << "Could not load texture bullet.jpg" << std::endl;
+        return 1;
+    }
+
     sf::Texture textureZombie;
     if (!textureZombie.loadFromFile("textures\\zombie_move.png")) {
         std::cout << "Could not load texture zombie_move.png" << std::endl;
@@ -41,6 +48,7 @@ std::vector<sf::Sprite> sciany_sprites = otoczenie.getScianyVectorSprite();
 
 //vector
 std::vector<std::unique_ptr<Zombie>> zombieVector;
+std::vector<std::unique_ptr<Bullet>> bullets;
 
 
 //zmienne
@@ -51,6 +59,8 @@ float time_to_spawn_bigzombie=0;
 float time_enemies_mediumzombie=0;
 float time_enemies_smallzombie=0;
 float time_enemies_bigzombie=0;
+
+float time_since_shooted;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -101,31 +111,66 @@ float time_enemies_bigzombie=0;
     sf::Sprite player_sprite = player.getSpritePlayer();
 
 //events
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
 
         }
+        if ( sf::Keyboard::isKeyPressed(sf::Keyboard::P) )
+                                {
+
+                                }
+
+        //jesli spacja = emplaceback new Bullet(texture,elapsed,player)
+
+sf::Time elapsed = clock.restart();
+       time_since_shooted=elapsed.asSeconds() + time_since_shooted;
+       if(time_since_shooted>=0.002)
+       {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+          bullets.emplace_back(new Bullet(textureBullet,player));
+          time_since_shooted=0;
+        }
+       }
 //poruszanie
-        sf::Time elapsed = clock.restart();
+
         player.poruszanie(sciany_sprites,elapsed);
 
         for(auto &el : zombieVector)
         {
-            el->poruszanie(player_sprite,sciany_sprites,elapsed);
+            el->poruszanie(player_sprite,sciany_sprites,elapsed); // poruszanie zombie
         }
+        for(auto &el : bullets)
+        {
+            el->bulletShooted(elapsed);
+
+         }
+
+        //xollsion bulelts
+
+
+
 //rysowanie
         window.display();
-
         otoczenie.rysuj(window);
-        player.rysuj(window);
+
+        for(auto &el : bullets)
+        {
+            el->rysuj(window);
+        }
+
+       player.rysuj(window);
 
         for(auto &el : zombieVector)
         {
             el->rysuj(window);
         }
 
+
+
     }
-;
+
     return 0;
 }

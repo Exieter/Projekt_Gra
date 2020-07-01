@@ -5,7 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
-//#include <windows.h>
+#include <algorithm>
+#include <windows.h>
 
 class Graj : public sf::Sprite
 {
@@ -14,8 +15,8 @@ protected:
     sf::Sprite sprite;
 public:
   Graj();
-  void wynik();
-  bool czyPrzegrana();
+ // void wynik();
+  //bool czyPrzegrana();
   //virtual void poruszanie();
   void rysuj(sf::RenderWindow &window_) const;
 };
@@ -24,7 +25,6 @@ class Player : public Graj
 {
 private:
     int hpPlayer=100;
-
     int moveSpeed = 30000;
 
 public:
@@ -32,6 +32,22 @@ public:
     void poruszanie(std::vector<sf::Sprite> &sciany, sf::Time &elapsed);
     int odejmijHP();
     sf::Sprite getSpritePlayer() const;
+};
+
+class Bullet : public Graj
+{
+private:
+    int bullet_speed=100000;
+    int rotation_angle=0;
+    float time_since_last_shot=0;
+
+    float setreturnBulletPosition(Player &player);
+
+public:
+    Bullet(sf::Texture &texture_,Player &player); //wczytuje teksture inicjueje do sprite
+    void bulletShooted(sf::Time &elapsed); //  kula ruszanie
+
+
 };
 
 
@@ -44,7 +60,6 @@ protected:
 float angle_zombie_player_to_move = 0; //  do poruszania w strone gracza
 float angle_zombie_player_to_face = 0; // do rotacji zombie w strone gracza
 
-int random_position = rand()%4;
 
 public:
     Zombie();

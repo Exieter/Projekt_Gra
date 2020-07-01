@@ -6,6 +6,8 @@ Graj::Graj()
 
 }
 
+
+
 Player::Player(sf::Texture &texture_)
 {
     this->texture=texture_;
@@ -16,6 +18,63 @@ Player::Player(sf::Texture &texture_)
     sprite.setPosition(320,320);
 }
 
+Bullet::Bullet(sf::Texture &texture_, Player &player)
+{
+    this->texture=texture_;
+
+    sprite.setTexture(texture);
+    sprite.setTextureRect(sf::IntRect(0,0,220,590));
+    sprite.setOrigin((sprite.getGlobalBounds().left+sprite.getGlobalBounds().width)/2,(sprite.getGlobalBounds().top+sprite.getGlobalBounds().height)/2);
+    sprite.rotate(90);
+    sprite.setScale(0.02, 0.02);
+
+     rotation_angle =this->setreturnBulletPosition(player);
+
+}
+
+void Bullet::bulletShooted(sf::Time &elapsed)
+{
+
+
+    switch(rotation_angle)
+    {
+    case 0:
+        sprite.move(bullet_speed *elapsed.asSeconds(),0);
+        break;
+    case 45:
+        sprite.move(bullet_speed*elapsed.asSeconds(),bullet_speed*elapsed.asSeconds());
+        break;
+    case 90:
+        sprite.move(0,bullet_speed*elapsed.asSeconds());
+        break;
+    case 135:
+        sprite.move(-bullet_speed*elapsed.asSeconds(),bullet_speed*elapsed.asSeconds());
+        break;
+    case 180:
+        sprite.move(-bullet_speed *elapsed.asSeconds(),0);
+        break;
+    case 225:
+        sprite.move(-bullet_speed*elapsed.asSeconds(),-bullet_speed*elapsed.asSeconds());
+        break;
+    case 270:
+        sprite.move(0,-bullet_speed*elapsed.asSeconds());
+        break;
+    case 315:
+        sprite.move(bullet_speed*elapsed.asSeconds(),-bullet_speed*elapsed.asSeconds());
+        break;
+    }
+
+}
+
+
+
+float Bullet::setreturnBulletPosition(Player &player)
+{
+    sprite.setPosition(player.getSpritePlayer().getPosition());
+    sprite.setRotation(player.getSpritePlayer().getRotation()+90);
+    return player.getSpritePlayer().getRotation();
+
+}
 
 Zombie::Zombie()
 {
@@ -160,6 +219,7 @@ std::vector<sf::Sprite> Otoczenie::getScianyVectorSprite() const
 {
     return sciany;
 }
+
 void Player::poruszanie(std::vector<sf::Sprite> &sciany,sf::Time &elapsed)
 {
     sprite.setOrigin( (sprite.getLocalBounds().height / 2)-11 , (sprite.getLocalBounds().width / 2) - 10); // potrzebne do rotacji tesktury
@@ -220,7 +280,7 @@ void Player::poruszanie(std::vector<sf::Sprite> &sciany,sf::Time &elapsed)
             }
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            sprite.setRotation(215);
+            sprite.setRotation(-135);
             if(player_bounds.left > 0)
             {
                 sprite.move( -moveSpeed*elapsed.asSeconds(),0);
@@ -353,51 +413,52 @@ void Zombie::poruszanie( sf::Sprite &player_sprite,std::vector<sf::Sprite> &scia
     {
         sprite.move(std::cos(angle_zombie_player_to_move)* elapsed.asSeconds() * moveSpeedZombie, std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
     }
-    for(auto &el : sciany_sprites)
-    {
+//    for(auto &el : sciany_sprites)
+//    {
 
-        if(sprite.getGlobalBounds().intersects(el.getGlobalBounds()))
-        {
-            sprite.setOrigin(sprite.getLocalBounds().top , sprite.getLocalBounds().left );
-            if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height <= 450)
-            {
-                if(sprite.getGlobalBounds().top<= el.getLocalBounds().top + el.getGlobalBounds().height)
-                {
-                    sprite.move(0,- std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
-                }
-            }
-            if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height >= 450)
-            {
-                if(sprite.getGlobalBounds().top+sprite.getGlobalBounds().height>= el.getLocalBounds().top + el.getGlobalBounds().height)
-                {
-                    sprite.move(0,- std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
-                }
-            }
-        }
+//        if(sprite.getGlobalBounds().intersects(el.getGlobalBounds()))
+//        {
+//            sprite.setOrigin(sprite.getLocalBounds().top , sprite.getLocalBounds().left );
+//            if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height <= 450 &&  sprite.getGlobalBounds().top + sprite.getGlobalBounds().height >= 200 )
+//            {
+//                if(sprite.getGlobalBounds().top<= el.getLocalBounds().top + el.getGlobalBounds().height)
+//                {
+//                    sprite.move(0,- std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
+//                }
+//            }
+//            if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height >= 450 && sprite.getGlobalBounds().top + sprite.getGlobalBounds().height <= 700)
+//            {
+//                if(sprite.getGlobalBounds().top+sprite.getGlobalBounds().height>= el.getLocalBounds().top + el.getGlobalBounds().height)
+//                {
+//                    sprite.move(0,- std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
+//                }
+//            }
+//        }
 
-    }
+//    }
 
 }
 
 void Zombie::setZombiePosition()
 {
-    switch (random_position) {
+    switch (rand()%4) {
     case 0:
-        sprite.setPosition(550,-200); //gora
+        sprite.setPosition(550,-40); //gora
         break;
     case 1:
-        sprite.setPosition(550,1000);//dol
+        sprite.setPosition(550,940);//dol
         break;
     case 2:
-        sprite.setPosition(-200,450);//lewo
+        sprite.setPosition(-40,450);//lewo
         break;
     case 3:
-        sprite.setPosition(1300,450);//prawo
+        sprite.setPosition(1140,450);//prawo
         break;
     default:
         std::cerr<< " ERROR IN SETTING POS" << std::endl;
     }
 }
+
 
 
 
