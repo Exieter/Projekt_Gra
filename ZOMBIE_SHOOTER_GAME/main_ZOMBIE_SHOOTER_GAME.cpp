@@ -1,5 +1,10 @@
-#include "Menu.h"
-#include "grajj.h"
+
+#include "graj.h"
+#include "bullet.h"
+#include "otoczenie.h"
+#include "player.h"
+#include "zombie.h"
+#include "zombieclasses.h"
 
 int main() {
 

@@ -10,10 +10,18 @@ CONFIG(debug, debug|release){
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
 }
 SOURCES += \
+    bullet.cpp \
     graj.cpp \
-    grajj.cpp \
-    main_ZOMBIE_SHOOTER_GAME.cpp
+    main_ZOMBIE_SHOOTER_GAME.cpp \
+    otoczenie.cpp \
+    player.cpp \
+    zombie.cpp \
+    zombieclasses.cpp
 
 HEADERS += \
+    bullet.h \
     graj.h \
-    grajj.h
+    otoczenie.h \
+    player.h \
+    zombie.h \
+    zombieclasses.h
