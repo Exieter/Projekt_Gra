@@ -1,16 +1,10 @@
 #ifndef ZOMBIECLASSES_H
 #define ZOMBIECLASSES_H
 
-#include <graj.h>
+
 #include <zombie.h>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <cmath>
-#include <algorithm>
-#include <windows.h>
-
-
 
 
 class SmallZombie : public Zombie

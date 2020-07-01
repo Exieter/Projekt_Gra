@@ -4,15 +4,12 @@
 #include <graj.h>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <cmath>
-#include <algorithm>
-#include <windows.h>
+
 class Player : public Graj
 {
 private:
     int hpPlayer=100;
-    int moveSpeed = 30000;
+    int moveSpeed = 300000;
 
 public:
     Player(sf::Texture &texture_);

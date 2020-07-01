@@ -1,13 +1,12 @@
-
 #include "graj.h"
 #include "bullet.h"
 #include "otoczenie.h"
 #include "player.h"
 #include "zombie.h"
 #include "zombieclasses.h"
+#include <obslugagry.h>
 
 int main() {
-
     sf::RenderWindow window(sf::VideoMode(1100, 900), "Tytul");
 
 //wczytaj tekstury
@@ -44,6 +43,7 @@ int main() {
 
 
 //obiekty
+    ObslugaGry obslugagry;
     Player player(texturePlayer);
     Otoczenie otoczenie(textureSciana,texturePodloga);
 
@@ -67,8 +67,12 @@ float time_enemies_bigzombie=0;
 
 float time_since_shooted;
 
+bool is_paused=false;
+
     while (window.isOpen()) {
-        sf::Event event;
+if(!is_paused)
+{
+
 //spawn zombies in time:
         //smallzombie
         sf::Clock clock_to_spawn_smallzombie;
@@ -115,17 +119,7 @@ float time_since_shooted;
 //sprite variable
     sf::Sprite player_sprite = player.getSpritePlayer();
 
-//events
 
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-
-        }
-        if ( sf::Keyboard::isKeyPressed(sf::Keyboard::P) )
-                                {
-
-                                }
 
         //jesli spacja = emplaceback new Bullet(texture,elapsed,player)
 
@@ -156,8 +150,20 @@ sf::Time elapsed = clock.restart();
         //xollsion bulelts
 
 
-
+}
 //rysowanie
+//events
+sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+
+        }
+        if ( sf::Keyboard::isKeyPressed(sf::Keyboard::P) )
+                                {
+                is_paused = obslugagry.pause();
+                                }
+//rysowanue
         window.display();
         otoczenie.rysuj(window);
 
@@ -176,6 +182,7 @@ sf::Time elapsed = clock.restart();
 
 
     }
+
 
     return 0;
 }

@@ -13,6 +13,7 @@ SOURCES += \
     bullet.cpp \
     graj.cpp \
     main_ZOMBIE_SHOOTER_GAME.cpp \
+    obslugagry.cpp \
     otoczenie.cpp \
     player.cpp \
     zombie.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 HEADERS += \
     bullet.h \
     graj.h \
+    obslugagry.h \
     otoczenie.h \
     player.h \
     zombie.h \

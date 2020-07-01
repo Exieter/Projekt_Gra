@@ -3,12 +3,7 @@
 
 #include <graj.h>
 #include <player.h>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <cmath>
-#include <algorithm>
-#include <windows.h>
+
 
 
 
