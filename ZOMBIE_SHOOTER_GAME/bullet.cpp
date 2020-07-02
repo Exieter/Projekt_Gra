@@ -48,6 +48,20 @@ void Bullet::bulletShooted(sf::Time &elapsed)
 
 }
 
+sf::Sprite Bullet::getBulletSprite()
+{
+    return sprite;
+}
+
+bool Bullet::bulletPozaMapa(sf::Sprite &bulletSprite)
+{
+    if(bulletSprite.getGlobalBounds().left<-100 || bulletSprite.getGlobalBounds().left>1200 || bulletSprite.getGlobalBounds().top < -100 || bulletSprite.getLocalBounds().top > 1000)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 
 
 float Bullet::setreturnBulletPosition(Player &player)

@@ -6,6 +6,8 @@
 #include "zombieclasses.h"
 #include <obslugagry.h>
 
+#include <memory>
+
 int main() {
     sf::RenderWindow window(sf::VideoMode(1100, 900), "Tytul");
 
@@ -68,6 +70,8 @@ float time_enemies_bigzombie=0;
 float time_since_shooted;
 
 bool is_paused=false;
+sf::Sprite bulletSprite;
+sf::Sprite zombieSprite;
 
     while (window.isOpen()) {
 if(!is_paused)
@@ -80,7 +84,7 @@ if(!is_paused)
          time_enemies_smallzombie = clock_to_spawn_smallzombie.getElapsedTime().asSeconds();
         time_to_spawn_smallzombie = time_enemies_smallzombie + time_to_spawn_smallzombie * 1.0005;
 
-            if(time_to_spawn_smallzombie >= 0.001)
+            if(time_to_spawn_smallzombie >= 0.0007)
             {
             zombieVector.emplace_back(new SmallZombie(textureZombie));
             zombieVector.back()->setZombiePosition();
@@ -92,7 +96,7 @@ if(!is_paused)
               time_enemies_mediumzombie = clock_to_spawn_smallzombie.getElapsedTime().asSeconds();
              time_to_spawn_mediumzombie = time_enemies_mediumzombie + time_to_spawn_mediumzombie * 1.0005;
 
-                 if(time_to_spawn_mediumzombie >= 0.05)
+                 if(time_to_spawn_mediumzombie >= 0.03)
                  {
                  zombieVector.emplace_back(new MediumZombie(textureZombie));
                  zombieVector.back()->setZombiePosition();
@@ -104,7 +108,7 @@ if(!is_paused)
                   time_enemies_bigzombie = clock_to_spawn_bigzombie.getElapsedTime().asSeconds();
                  time_to_spawn_bigzombie = time_enemies_bigzombie + time_to_spawn_bigzombie * 1.0005;
 
-                     if(time_to_spawn_bigzombie >= 0.1)
+                     if(time_to_spawn_bigzombie >= 0.06)
                      {
                      zombieVector.emplace_back(new BigZombie(textureZombie));
                      zombieVector.back()->setZombiePosition();
@@ -119,13 +123,10 @@ if(!is_paused)
 //sprite variable
     sf::Sprite player_sprite = player.getSpritePlayer();
 
-
-
-        //jesli spacja = emplaceback new Bullet(texture,elapsed,player)
-
 sf::Time elapsed = clock.restart();
+//bullet shoot
        time_since_shooted=elapsed.asSeconds() + time_since_shooted;
-       if(time_since_shooted>=0.002)
+       if(time_since_shooted>=0.0001)
        {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
@@ -140,18 +141,71 @@ sf::Time elapsed = clock.restart();
         for(auto &el : zombieVector)
         {
             el->poruszanie(player_sprite,sciany_sprites,elapsed); // poruszanie zombie
+
+
         }
-        for(auto &el : bullets)
-        {
-            el->bulletShooted(elapsed);
 
-         }
 
-        //xollsion bulelts
+        for (unsigned i=0; i < bullets.size(); i++) {
+//lot kuli
+            bullets[i]->bulletShooted(elapsed);
+//kolizja pocisk - zombie + usuwanie zombie jesli <0 hp
+            bulletSprite = bullets[i]->getSprite();
+            for(unsigned j=0; j < zombieVector.size(); j++)
+            {
+                zombieSprite = zombieVector[j]->getSprite();
+
+                if(bulletSprite.getGlobalBounds().intersects(zombieSprite.getGlobalBounds()))
+                {
+                    bullets.erase(bullets.begin()+i);
+
+                    SmallZombie *smallzombie = dynamic_cast<SmallZombie *>(zombieVector[j].get());
+                    if(smallzombie!=nullptr)
+                    {
+                        smallzombie->odejmijHPZombie();
+                        if(smallzombie->zwrocHPZombie()<=0)
+                        {
+                            zombieVector.erase(zombieVector.begin()+j);
+                        }
+                    }
+                    MediumZombie *mediumzombie = dynamic_cast<MediumZombie *>(zombieVector[j].get());
+                    if(mediumzombie!=nullptr)
+                    {
+                        mediumzombie->odejmijHPZombie();
+                        if(mediumzombie->zwrocHPZombie()<=0)
+                        {
+                            zombieVector.erase(zombieVector.begin()+j);
+                        }
+                    }
+                    BigZombie *bigzombie = dynamic_cast<BigZombie *>(zombieVector[j].get());
+                    if(bigzombie!=nullptr)
+                    {
+                        bigzombie->odejmijHPZombie();
+                        if(bigzombie->zwrocHPZombie()<=0)
+                        {
+                            zombieVector.erase(zombieVector.begin()+j);
+                        }
+                    }
+                }
+
+
+
+            }
+//kula poza mapa
+            if(bullets[i]->bulletPozaMapa(bulletSprite))
+            {
+                bullets.erase(bullets.begin()+i);
+            }
+
+        }
+
+
+
+
 
 
 }
-//rysowanie
+
 //events
 sf::Event event;
         while (window.pollEvent(event)) {
@@ -163,7 +217,7 @@ sf::Event event;
                                 {
                 is_paused = obslugagry.pause();
                                 }
-//rysowanue
+//rysowanie
         window.display();
         otoczenie.rysuj(window);
 

@@ -21,6 +21,8 @@ public:
     Zombie();
     void poruszanie(sf::Sprite &player_sprite,std::vector<sf::Sprite> &sciany_sprites,sf::Time &elapsed );
     void setZombiePosition();
+    virtual void odejmijHPZombie(){;};
+    virtual int zwrocHPZombie(){;};
 
 };
 

@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <windows.h>
 
+
 class Graj : public sf::Sprite
 {
 protected:
@@ -16,10 +17,9 @@ protected:
     sf::Sprite sprite;
 public:
   Graj();
- // void wynik();
-  //bool czyPrzegrana();
-  //virtual void poruszanie();
   void rysuj(sf::RenderWindow &window_) const;
+  sf::Sprite getSprite();
+
 };
 
 #endif // GRAJ_H
