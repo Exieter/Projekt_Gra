@@ -16,7 +16,7 @@ void SmallZombie::odejmijHPZombie()
 
 }
 
-int SmallZombie::zwrocHPZombie()
+int SmallZombie::zwrocHPZombie() const
 {
  return hpSmall;
 }
@@ -38,7 +38,7 @@ void MediumZombie::odejmijHPZombie()
     hpMedium = hpMedium - 15;
 }
 
-int MediumZombie::zwrocHPZombie()
+int MediumZombie::zwrocHPZombie() const
 {
     return hpMedium;
 }
@@ -58,7 +58,7 @@ void BigZombie::odejmijHPZombie()
     hpBig = hpBig - 15;
 }
 
-int BigZombie::zwrocHPZombie()
+int BigZombie::zwrocHPZombie() const
 {
     return hpBig;
 }

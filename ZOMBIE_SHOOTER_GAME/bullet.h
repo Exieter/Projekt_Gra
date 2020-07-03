@@ -10,7 +10,7 @@
 class Bullet : public Graj
 {
 private:
-    int bullet_speed=1000000;
+    int bullet_speed=10000000;
     int rotation_angle=0;
     float time_since_last_shot=0;
 

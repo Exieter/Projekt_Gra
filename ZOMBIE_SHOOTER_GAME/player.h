@@ -8,14 +8,15 @@
 class Player : public Graj
 {
 private:
-    int hpPlayer=100;
-    int moveSpeed = 300000;
+    int hpPlayer=200;
+    int moveSpeed = 6000000;
 
 public:
     Player(sf::Texture &texture_);
     void poruszanie(std::vector<sf::Sprite> &sciany, sf::Time &elapsed);
-    int odejmijHP();
     sf::Sprite getSpritePlayer() const;
+    void odejmijHPPlayer(const int &liczba_do_odjecia);
+    int zwrocHPPlayer() const;
 };
 
 #endif // PLAYER_H

@@ -36,28 +36,5 @@ void Zombie::poruszanie( sf::Sprite &player_sprite,std::vector<sf::Sprite> &scia
     {
         sprite.move(std::cos(angle_zombie_player_to_move)* elapsed.asSeconds() * moveSpeedZombie, std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
     }
-//    for(auto &el : sciany_sprites)
-//    {
-
-//        if(sprite.getGlobalBounds().intersects(el.getGlobalBounds()))
-//        {
-//            sprite.setOrigin(sprite.getLocalBounds().top , sprite.getLocalBounds().left );
-//            if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height <= 450 &&  sprite.getGlobalBounds().top + sprite.getGlobalBounds().height >= 200 )
-//            {
-//                if(sprite.getGlobalBounds().top<= el.getLocalBounds().top + el.getGlobalBounds().height)
-//                {
-//                    sprite.move(0,- std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
-//                }
-//            }
-//            if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height >= 450 && sprite.getGlobalBounds().top + sprite.getGlobalBounds().height <= 700)
-//            {
-//                if(sprite.getGlobalBounds().top+sprite.getGlobalBounds().height>= el.getLocalBounds().top + el.getGlobalBounds().height)
-//                {
-//                    sprite.move(0,- std::sin(angle_zombie_player_to_move) * elapsed.asSeconds() * moveSpeedZombie);
-//                }
-//            }
-//        }
-
-//    }
 
 }

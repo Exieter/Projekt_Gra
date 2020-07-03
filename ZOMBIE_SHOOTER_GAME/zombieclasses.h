@@ -10,37 +10,34 @@
 class SmallZombie : public Zombie
 {
 private:
-    int hpSmall = 20;
-    int damageSmall = 5;
-int moveSpeedZombie=200000;
+    int hpSmall = 15;
+
 public:
     SmallZombie(sf::Texture &texture_);
     void odejmijHPZombie();
-    int zwrocHPZombie();
+    int zwrocHPZombie() const;
 };
 
 class MediumZombie : public Zombie
 {
 private:
-    int hpMedium = 50;
-    int damageMedium = 10;
+    int hpMedium = 30;
 
 public:
     MediumZombie(sf::Texture &texture_);
     void odejmijHPZombie();
-    int zwrocHPZombie();
+    int zwrocHPZombie() const;
 };
 
 class BigZombie : public Zombie
 {
 private:
-    int hpBig = 100;
-    int damageBig = 30;
+    int hpBig = 45;
 
 public:
     BigZombie(sf::Texture &texture_);
     void odejmijHPZombie();
-    int zwrocHPZombie();
+    int zwrocHPZombie() const;
 };
 
 #endif // ZOMBIECLASSES_H

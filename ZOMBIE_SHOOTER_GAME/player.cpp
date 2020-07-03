@@ -190,3 +190,13 @@ sf::Sprite Player::getSpritePlayer() const
     return sprite;
 }
 
+void Player::odejmijHPPlayer(const int &liczba_do_odjecia)
+{
+    hpPlayer=hpPlayer - liczba_do_odjecia;
+}
+
+int Player::zwrocHPPlayer() const
+{
+    return hpPlayer;
+}
+
