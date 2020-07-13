@@ -17,6 +17,8 @@ public:
     sf::Sprite getSpritePlayer() const;
     void odejmijHPPlayer(const int &liczba_do_odjecia);
     int zwrocHPPlayer() const;
+    void odejmijHP();
+    int zwrocHP() const;
 };
 
 #endif // PLAYER_H

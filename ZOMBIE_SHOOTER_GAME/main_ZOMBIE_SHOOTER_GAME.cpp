@@ -172,36 +172,15 @@ sf::Time elapsed = clock.restart();
                 {
                     bullets.erase(bullets.begin()+i);
 
-                    SmallZombie *smallzombie = dynamic_cast<SmallZombie *>(zombieVector[j].get());
-                    if(smallzombie!=nullptr)
-                    {
-                        smallzombie->odejmijHPZombie();
-                        if(smallzombie->zwrocHPZombie()<=0)
+
+                        zombieVector[i]->odejmijHPZombie();
+                        if(zombieVector[i]->zwrocHPZombie()<=0)
                         {
                             zombieVector.erase(zombieVector.begin()+j);
 
                         }
-                    }
-                    MediumZombie *mediumzombie = dynamic_cast<MediumZombie *>(zombieVector[j].get());
-                    if(mediumzombie!=nullptr)
-                    {
-                        mediumzombie->odejmijHPZombie();
-                        if(mediumzombie->zwrocHPZombie()<=0)
-                        {
-                            zombieVector.erase(zombieVector.begin()+j);
 
-                        }
-                    }
-                    BigZombie *bigzombie = dynamic_cast<BigZombie *>(zombieVector[j].get());
-                    if(bigzombie!=nullptr)
-                    {
-                        bigzombie->odejmijHPZombie();
-                        if(bigzombie->zwrocHPZombie()<=0)
-                        {
-                            zombieVector.erase(zombieVector.begin()+j);
 
-                        }
-                    }
                 }
  //kolizja zomie -> gracz
                 sf::Clock time_zombie_intersects_player;

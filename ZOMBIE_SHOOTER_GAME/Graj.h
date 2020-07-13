@@ -19,6 +19,8 @@ public:
   Graj();
   void rysuj(sf::RenderWindow &window_) const;
   sf::Sprite getSprite();
+  //virtual void odejmijHP()=0;
+  //virtual int zwrocHP() const=0;
 
 };
 

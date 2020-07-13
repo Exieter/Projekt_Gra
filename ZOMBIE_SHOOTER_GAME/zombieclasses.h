@@ -16,6 +16,8 @@ public:
     SmallZombie(sf::Texture &texture_);
     void odejmijHPZombie();
     int zwrocHPZombie() const;
+     void odejmijHP();
+     int zwrocHP() const;
 };
 
 class MediumZombie : public Zombie
@@ -27,6 +29,8 @@ public:
     MediumZombie(sf::Texture &texture_);
     void odejmijHPZombie();
     int zwrocHPZombie() const;
+    void odejmijHP();
+    int zwrocHP() const;
 };
 
 class BigZombie : public Zombie
@@ -38,6 +42,8 @@ public:
     BigZombie(sf::Texture &texture_);
     void odejmijHPZombie();
     int zwrocHPZombie() const;
+    void odejmijHP();
+    int zwrocHP() const;
 };
 
 #endif // ZOMBIECLASSES_H

@@ -200,3 +200,13 @@ int Player::zwrocHPPlayer() const
     return hpPlayer;
 }
 
+void Player::odejmijHP()
+{
+  hpPlayer=hpPlayer - 1;
+}
+
+int Player::zwrocHP() const
+{
+    return hpPlayer;
+}
+
