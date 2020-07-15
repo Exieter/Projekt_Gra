@@ -21,30 +21,39 @@ void Bullet::bulletShooted(sf::Time &elapsed)
     switch(rotation_angle)
     {
     case 0:
-        sprite.move(bullet_speed *elapsed.asSeconds(),0);
+        moveSpeedBulletX=10000000;
+        moveSpeedBulletY=0;
         break;
     case 45:
-        sprite.move(bullet_speed*elapsed.asSeconds(),bullet_speed*elapsed.asSeconds());
+        moveSpeedBulletX=10000000;
+        moveSpeedBulletY=10000000;
         break;
     case 90:
-        sprite.move(0,bullet_speed*elapsed.asSeconds());
+        moveSpeedBulletX=0;
+        moveSpeedBulletY=10000000;
         break;
     case 135:
-        sprite.move(-bullet_speed*elapsed.asSeconds(),bullet_speed*elapsed.asSeconds());
+        moveSpeedBulletX=-10000000;
+        moveSpeedBulletY=10000000;
         break;
     case 180:
-        sprite.move(-bullet_speed *elapsed.asSeconds(),0);
+        moveSpeedBulletX=-10000000;
+        moveSpeedBulletY=0;
         break;
     case 225:
-        sprite.move(-bullet_speed*elapsed.asSeconds(),-bullet_speed*elapsed.asSeconds());
+        moveSpeedBulletX=-10000000;
+        moveSpeedBulletY=-10000000;
         break;
     case 270:
-        sprite.move(0,-bullet_speed*elapsed.asSeconds());
+        moveSpeedBulletX=0;
+        moveSpeedBulletY=-10000000;
         break;
     case 315:
-        sprite.move(bullet_speed*elapsed.asSeconds(),-bullet_speed*elapsed.asSeconds());
+        moveSpeedBulletX=10000000;
+        moveSpeedBulletY=-10000000;
         break;
     }
+    animate(moveSpeedBulletX*elapsed.asSeconds(),moveSpeedBulletY*elapsed.asSeconds());
 
 }
 

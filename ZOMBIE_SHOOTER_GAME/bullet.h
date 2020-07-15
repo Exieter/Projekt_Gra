@@ -14,6 +14,9 @@ private:
     int rotation_angle=0;
     float time_since_last_shot=0;
 
+    int moveSpeedBulletX=0;
+    int moveSpeedBulletY=0;
+
     float setreturnBulletPosition(Player &player);
 
 public:

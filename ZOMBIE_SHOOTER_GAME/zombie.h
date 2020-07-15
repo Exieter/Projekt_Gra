@@ -16,6 +16,9 @@ protected:
 float angle_zombie_player_to_move = 0; //  do poruszania w strone gracza
 float angle_zombie_player_to_face = 0; // do rotacji zombie w strone gracza
 
+int moveSpeedZombieX=0;
+int moveSpeedZombieY=0;
+
 
 public:
     Zombie();

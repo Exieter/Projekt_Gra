@@ -149,12 +149,63 @@ sf::Time elapsed = clock.restart();
 //poruszanie
        //sprite variable
            sf::Sprite player_sprite = player.getSpritePlayer();
-        player.poruszanie(sciany_sprites,elapsed);
+
+        player.poruszanie(elapsed);
+        sf::Vector2i moveSpeedVector = player.getSpeedXY();
+
+        int x_move_speed = moveSpeedVector.x;
+        int y_move_speed = moveSpeedVector.y;
+        //player kolizja - sciana + wychodzenie poza mape          // NEW po poprawie
+        for(auto &el : sciany_sprites)
+        {
+            if(player_sprite.getGlobalBounds().intersects(el.getGlobalBounds()))
+            {
+                //gora dol
+                if(el.getGlobalBounds().contains(player_sprite.getGlobalBounds().left + 20,player_sprite.getGlobalBounds().top) || el.getGlobalBounds().contains(player_sprite.getGlobalBounds().left - 20 + player_sprite.getGlobalBounds().width,player_sprite.getGlobalBounds().top) )
+                {
+                        player.animate(0,abs(y_move_speed*elapsed.asSeconds()));
+                }
+                else if(el.getGlobalBounds().contains(player_sprite.getGlobalBounds().left + 20 ,player_sprite.getGlobalBounds().top + player_sprite.getGlobalBounds().height) || el.getGlobalBounds().contains(player_sprite.getGlobalBounds().left - 20 + player_sprite.getGlobalBounds().width,player_sprite.getGlobalBounds().top + player_sprite.getGlobalBounds().height) )
+                {
+                        player.animate(0,-abs(y_move_speed*elapsed.asSeconds()));
+                }
+                //lewo prawo
+                if(el.getGlobalBounds().contains(player_sprite.getGlobalBounds().left,player_sprite.getGlobalBounds().top + 20) || el.getGlobalBounds().contains(player_sprite.getGlobalBounds().left,player_sprite.getGlobalBounds().top - 20 + player_sprite.getGlobalBounds().height) )
+                {
+                        player.animate(abs(x_move_speed*elapsed.asSeconds()),0);
+                }
+                else  if(el.getGlobalBounds().contains(player_sprite.getGlobalBounds().left+player_sprite.getGlobalBounds().width,player_sprite.getGlobalBounds().top + 20) || el.getGlobalBounds().contains(player_sprite.getGlobalBounds().left + player_sprite.getGlobalBounds().width,player_sprite.getGlobalBounds().top - 20 + player_sprite.getGlobalBounds().height) )
+                {
+                        player.animate(-abs(x_move_speed*elapsed.asSeconds()),0);
+                }
+            }
+
+        }
+        //wychodzenie poza mape
+        if(player_sprite.getGlobalBounds().left<0)
+        {
+            player.animate(abs(x_move_speed*elapsed.asSeconds()),0);
+        }
+        else if(player_sprite.getGlobalBounds().left + player_sprite.getGlobalBounds().width>1100)
+        {
+            player.animate(-abs(x_move_speed*elapsed.asSeconds()),0);
+        }
+        else if(player_sprite.getGlobalBounds().top<0)
+        {
+            player.animate(0,abs(y_move_speed*elapsed.asSeconds()));
+        }
+        else  if(player_sprite.getGlobalBounds().top + player_sprite.getGlobalBounds().height>900)
+        {
+            player.animate(0,-abs(y_move_speed*elapsed.asSeconds()));
+        }
+
+
+        //zombie poruszanie
 
         for(auto &el : zombieVector)
         {
             el->poruszanie(player_sprite,sciany_sprites,elapsed); // poruszanie zombie
-
+        //zombie kolizja z graczem
 
         }
 
@@ -173,8 +224,8 @@ sf::Time elapsed = clock.restart();
                     bullets.erase(bullets.begin()+i);
 
 
-                        zombieVector[i]->odejmijHPZombie();
-                        if(zombieVector[i]->zwrocHPZombie()<=0)
+                        zombieVector[j]->odejmijHPZombie();
+                        if(zombieVector[j]->zwrocHPZombie()<=0)
                         {
                             zombieVector.erase(zombieVector.begin()+j);
 
@@ -191,7 +242,7 @@ sf::Time elapsed = clock.restart();
                 czas_styku=czas_styku+time_intersection.asSeconds();
                 if(czas_styku>=0.00002)
                 {
-                    player.odejmijHPPlayer(1);
+                    player.odejmijHPPlayer(2);                                                    // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                     czas_styku=0;
                     std::cout<<player_hp<<std::endl;
                 }
@@ -218,6 +269,7 @@ sf::Time elapsed = clock.restart();
 
 }
 
+//player.odejmijHP(2);
 //events
 sf::Event event;
         while (window.pollEvent(event)) {

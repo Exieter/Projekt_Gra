@@ -12,15 +12,22 @@
 
 class Graj : public sf::Sprite
 {
+private:
+    int HP=0;
 protected:
     sf::Texture texture;
     sf::Sprite sprite;
+
 public:
   Graj();
   void rysuj(sf::RenderWindow &window_) const;
   sf::Sprite getSprite();
-  //virtual void odejmijHP()=0;
-  //virtual int zwrocHP() const=0;
+
+   void odejmijHP(const int &ilosc_do_odjecia);
+   int zwrocHP() const;
+
+    void animate( const int &moveSpeedX_, const int &moveSpeedY_);
+
 
 };
 
