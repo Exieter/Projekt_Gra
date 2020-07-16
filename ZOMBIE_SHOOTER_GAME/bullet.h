@@ -25,6 +25,8 @@ public:
     sf::Sprite getBulletSprite();
     bool bulletPozaMapa(sf::Sprite &bulletSprite);
 
+    sf::Vector2i getSpeedXY();
+
 };
 
 #endif // BULLET_H

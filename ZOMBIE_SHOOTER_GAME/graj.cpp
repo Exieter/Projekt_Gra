@@ -20,8 +20,3 @@ sf::Sprite Graj::getSprite()
     return sprite;
 }
 
-void Graj::odejmijHP(const int &ilosc_do_odjecia)
-{
-   this->HP=this->HP-ilosc_do_odjecia;
-    std::cout<<this->HP<<std::endl;
-}

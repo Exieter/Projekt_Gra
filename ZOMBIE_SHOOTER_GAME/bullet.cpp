@@ -71,6 +71,11 @@ bool Bullet::bulletPozaMapa(sf::Sprite &bulletSprite)
     return 0;
 }
 
+sf::Vector2i Bullet::getSpeedXY()
+{
+    return sf::Vector2i(moveSpeedBulletX,moveSpeedBulletY);
+}
+
 
 
 float Bullet::setreturnBulletPosition(Player &player)

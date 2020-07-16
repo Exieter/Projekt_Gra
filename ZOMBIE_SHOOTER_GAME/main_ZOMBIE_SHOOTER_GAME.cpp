@@ -204,16 +204,26 @@ sf::Time elapsed = clock.restart();
 
         for(auto &el : zombieVector)
         {
+            sf::Vector2i moveSpeedZombie=el->getSpeedXY();
+
             el->poruszanie(player_sprite,sciany_sprites,elapsed); // poruszanie zombie
-        //zombie kolizja z graczem
+            //kolizja zombie gracz
+            if(el->getSprite().getGlobalBounds().intersects(player_sprite.getGlobalBounds()))
+            {
+                el->animate(-moveSpeedZombie.x*elapsed.asSeconds(), -moveSpeedZombie.y*elapsed.asSeconds());
+            }
 
         }
 
-
-        for (unsigned i=0; i < bullets.size(); i++) {
 //lot kuli
+        for (unsigned i=0; i < bullets.size(); i++)
+        {
             bullets[i]->bulletShooted(elapsed);
-//kolizja pocisk - zombie + usuwanie zombie jesli <0 hp
+
+        }
+        //kolizja pocisk - zombie + usuwanie zombie jesli <0 hp
+        for(unsigned i=0; i < bullets.size(); i++)
+        {
             bulletSprite = bullets[i]->getSprite();
             for(unsigned j=0; j < zombieVector.size(); j++)
             {
@@ -225,11 +235,6 @@ sf::Time elapsed = clock.restart();
 
 
                         zombieVector[j]->odejmijHPZombie();
-                        if(zombieVector[j]->zwrocHPZombie()<=0)
-                        {
-                            zombieVector.erase(zombieVector.begin()+j);
-
-                        }
 
 
                 }
@@ -250,13 +255,46 @@ sf::Time elapsed = clock.restart();
 
 
             }
-//kula poza mapa
-            if(bullets[i]->bulletPozaMapa(bulletSprite))
-            {
-                bullets.erase(bullets.begin()+i);
-            }
+
 
         }
+        //usuwanie kuli kolizja zombie
+        for(unsigned j=0; j < zombieVector.size(); j++)
+        {
+        bullets.erase(
+            std::remove_if(bullets.begin(), bullets.end(),[&](std::unique_ptr<Bullet> &bullet) { return bullet->getSprite().getGlobalBounds().intersects(zombieVector[j]->getSprite().getGlobalBounds()); }),bullets.end() );
+        }
+        //bulllets poza mapa usuwanie
+        for(size_t j = 0; j < bullets.size(); )
+        {
+        auto &bullet = bullets[j];
+        bulletSprite = bullet->getBulletSprite();
+            if (bullet->bulletPozaMapa(bulletSprite))
+            {
+                bullets.erase(bullets.begin()+j);
+            }
+            else
+            {
+                ++j;
+            }
+        }
+        //usuwanie zombie =<0 hp
+        for(size_t j = 0; j < zombieVector.size(); )
+        {
+        auto &zombie = zombieVector[j];
+        zombieSprite= zombie->getSprite();
+            if (zombie->zwrocHPZombie()<=0)
+            {
+                zombieVector.erase(zombieVector.begin()+j);
+            }
+            else
+            {
+                ++j;
+            }
+        }
+
+
+
         if(player_hp<=0)
         {
              obslugagry.restart(player_hp,zombieVector,bullets);
