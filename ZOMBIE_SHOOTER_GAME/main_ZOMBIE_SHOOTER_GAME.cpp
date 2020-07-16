@@ -231,12 +231,7 @@ sf::Time elapsed = clock.restart();
 
                 if(bulletSprite.getGlobalBounds().intersects(zombieSprite.getGlobalBounds()))
                 {
-                    bullets.erase(bullets.begin()+i);
-
-
                         zombieVector[j]->odejmijHPZombie();
-
-
                 }
  //kolizja zomie -> gracz
                 sf::Clock time_zombie_intersects_player;
@@ -281,8 +276,7 @@ sf::Time elapsed = clock.restart();
         //usuwanie zombie =<0 hp
         for(size_t j = 0; j < zombieVector.size(); )
         {
-        auto &zombie = zombieVector[j];
-        zombieSprite= zombie->getSprite();
+        auto &zombie = zombieVector[j];;
             if (zombie->zwrocHPZombie()<=0)
             {
                 zombieVector.erase(zombieVector.begin()+j);
