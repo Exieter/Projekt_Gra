@@ -14,7 +14,7 @@ Gracz może strzelać w kierunku poruszania lub w kierunku, w którym jest obró
 
 Plansza jest w kształcie kwadratu z 4 szczelinami, przez które może wchodzić Zombie.
 
-Dookoła niego zza mapy wyłaniają się Zombie z 1 z 4 losowo wylosowanej pozycji, zmierzając w stronę Gracza.
+Dookoła niego zza mapy wyłaniają się Zombie z 1 z 4 losowo wylosowanej pozycji, zmierzając oraz będąc obróconym w stronę Gracza.
 
 Gracz nie może chodzić po ścianach, oraz wychodzić poza granicę okna gry
 
