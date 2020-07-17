@@ -22,6 +22,10 @@ Zombie rozróżnieni na kilka klas - SmallZombie = 15HP,  MediumZombie = 30HP, B
 
 Gracz strzelając od Zombie odejmuje im 15HP za każde trafienie nabojem.
 
+Naboje wyłaniają się z pewnym opóźnieniem czasowym.
+
+Naboje znikają po dotknięciu krawędzi mapy.
+
 Przy kolizji Zombie - Bullet (nabój) - Zombie traci 15HP, a nabój znika.
 
 Gdy Zombie <=0 HP  - znika.
