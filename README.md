@@ -6,7 +6,7 @@ ZOMBIE_SHOOTER_GAME
 Gra typu shooter.
 Widok z góry, gra 2D, cała plansza w polu widzenia.
 
-Gracz spawnuje się na środku Otoczenia (mapy), może się poruszać płynnie o  odległość x na boki + po skosach (wypadkowa prędkości x i y)  za pomocą strzałek.
+Gracz spawnuje się na środku Otoczenia (mapy), może się poruszać płynnie o  odległość x na boki + po skosach (wypadkowa prędkości x i y)  za pomocą strzałek, które w trackie ich trzymania zmieniają prędkość z 0 do większej wartości.
 
 Gracz obraca się w kierunku poruszania.
 
@@ -35,6 +35,8 @@ Kiedy występuje kolizja Gracz - Zombie, Zombie nie porusza się w strone gracza
 Gra kończy się po śmierci gracza, w tym przypadku na planszy pozostaje tylko Gracz, który nie może już strzelać.
 
 Aby zacząć grę od nowa, należy uruchomić ją ponownie
+
+Wszystkie obiekty mają kwadratową obwiednie.
 
 
 
