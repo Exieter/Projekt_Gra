@@ -215,15 +215,11 @@ sf::Time elapsed = clock.restart();
 
         }
 
-//lot kuli
+//lot kuli //kolizja pocisk - zombie
         for (unsigned i=0; i < bullets.size(); i++)
         {
             bullets[i]->bulletShooted(elapsed);
 
-        }
-        //kolizja pocisk - zombie
-        for(unsigned i=0; i < bullets.size(); i++)
-        {
             bulletSprite = bullets[i]->getSprite();
             for(unsigned j=0; j < zombieVector.size(); j++)
             {

@@ -7,7 +7,7 @@ ObslugaGry::ObslugaGry()
 
 bool ObslugaGry::pause()
 {
-    Sleep(150); // przystanek zeby sie nie zapauzowywala i odpauzowywala przy jednym kliknieciu przycisku
+    Sleep(150);
   if(!is_paused)
   {
       is_paused=1;

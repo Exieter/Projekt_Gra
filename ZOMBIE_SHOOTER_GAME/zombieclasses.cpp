@@ -1,4 +1,6 @@
 #include "zombieclasses.h"
+
+
 //small
 SmallZombie::SmallZombie(sf::Texture &texture_)
 {
@@ -9,11 +11,6 @@ SmallZombie::SmallZombie(sf::Texture &texture_)
     sprite.setTextureRect(sf::IntRect(24,70,215,207));
 
 }
-
-
-
-
-
 
 
 //medium
@@ -27,10 +24,6 @@ MediumZombie::MediumZombie(sf::Texture &texture_)
     sprite.setTextureRect(sf::IntRect(24,70,215,207));
 
 }
-
-
-
-
 
 
 //big
