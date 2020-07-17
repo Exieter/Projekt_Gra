@@ -21,11 +21,10 @@ public:
   void rysuj(sf::RenderWindow &window_) const;
   sf::Sprite getSprite();
 
-   void odejmijHP(const int &ilosc_do_odjecia);
-   int zwrocHP() const;
-
     void animate( const int &moveSpeedX_, const int &moveSpeedY_);
     virtual sf::Vector2i getSpeedXY()=0;
+    virtual int zwrocHP() const=0;
+    virtual void odejmijHP()=0;
 
 
 };

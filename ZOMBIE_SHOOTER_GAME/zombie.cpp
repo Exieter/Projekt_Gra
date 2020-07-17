@@ -28,7 +28,7 @@ sf::Vector2i Zombie::getSpeedXY()
 {
     return sf::Vector2i(moveSpeedZombieX,moveSpeedZombieY);
 }
-void Zombie::poruszanie( sf::Sprite &player_sprite,std::vector<sf::Sprite> &sciany_sprites, sf::Time &elapsed )
+void Zombie::poruszanie( sf::Sprite &player_sprite, sf::Time &elapsed )
 {
     angle_zombie_player_to_move = atan2(player_sprite.getPosition().y - sprite.getPosition().y, player_sprite.getPosition().x - sprite.getPosition().x);
 

@@ -78,19 +78,19 @@ sf::Sprite Player::getSpritePlayer() const
     return sprite;
 }
 
-void Player::odejmijHPPlayer(const int &liczba_do_odjecia)
+sf::Vector2i Player::getSpeedXY()
 {
-    hpPlayer=hpPlayer - liczba_do_odjecia;
+    return sf::Vector2i(moveSpeedX,moveSpeedY);
 }
 
-int Player::zwrocHPPlayer() const
+int Player::zwrocHP() const
 {
     return hpPlayer;
 }
 
-sf::Vector2i Player::getSpeedXY()
+void Player::odejmijHP()
 {
-    return sf::Vector2i(moveSpeedX,moveSpeedY);
+    hpPlayer=hpPlayer-2;
 }
 
 

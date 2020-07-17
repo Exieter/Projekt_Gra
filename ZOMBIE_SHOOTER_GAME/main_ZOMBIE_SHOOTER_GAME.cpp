@@ -80,7 +80,7 @@ sf::Sprite zombieSprite;
 
 
     while (window.isOpen()) {
-            int player_hp = player.zwrocHPPlayer();
+            int player_hp = player.zwrocHP();
 
 if(!is_paused)
 {
@@ -206,7 +206,7 @@ sf::Time elapsed = clock.restart();
         {
             sf::Vector2i moveSpeedZombie=el->getSpeedXY();
 
-            el->poruszanie(player_sprite,sciany_sprites,elapsed); // poruszanie zombie
+            el->poruszanie(player_sprite,elapsed); // poruszanie zombie
             //kolizja zombie gracz
             if(el->getSprite().getGlobalBounds().intersects(player_sprite.getGlobalBounds()))
             {
@@ -231,7 +231,7 @@ sf::Time elapsed = clock.restart();
 
                 if(bulletSprite.getGlobalBounds().intersects(zombieSprite.getGlobalBounds()))
                 {
-                        zombieVector[j]->odejmijHPZombie();
+                        zombieVector[j]->odejmijHP();
                 }
  //kolizja zomie -> gracz
                 sf::Clock time_zombie_intersects_player;
@@ -239,13 +239,13 @@ sf::Time elapsed = clock.restart();
                 if(zombieSprite.getGlobalBounds().intersects(player_sprite.getGlobalBounds()))
                 {
                     sf::Time time_intersection = time_zombie_intersects_player.restart();
-                czas_styku=czas_styku+time_intersection.asSeconds();
-                if(czas_styku>=0.00002)
-                {
-                    player.odejmijHPPlayer(2);                                                    // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    czas_styku=0;
-                    std::cout<<player_hp<<std::endl;
-                }
+                    czas_styku=czas_styku+time_intersection.asSeconds();
+                    if(czas_styku>=0.00002)
+                    {
+                        player.odejmijHP();                                                    // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        czas_styku=0;
+                        std::cout<<player_hp<<std::endl;
+                    }
                 }
 
 
@@ -277,7 +277,7 @@ sf::Time elapsed = clock.restart();
         for(size_t j = 0; j < zombieVector.size(); )
         {
         auto &zombie = zombieVector[j];;
-            if (zombie->zwrocHPZombie()<=0)
+            if (zombie->zwrocHP()<=0)
             {
                 zombieVector.erase(zombieVector.begin()+j);
             }
@@ -301,7 +301,6 @@ sf::Time elapsed = clock.restart();
 
 }
 
-//player.odejmijHP(2);
 //events
 sf::Event event;
         while (window.pollEvent(event)) {

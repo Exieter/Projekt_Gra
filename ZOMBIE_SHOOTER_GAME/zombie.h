@@ -22,11 +22,12 @@ int moveSpeedZombieY=0;
 
 public:
     Zombie();
-    void poruszanie(sf::Sprite &player_sprite,std::vector<sf::Sprite> &sciany_sprites,sf::Time &elapsed );
+    void poruszanie(sf::Sprite &player_sprite,sf::Time &elapsed);
     void setZombiePosition();
-    virtual void odejmijHPZombie()=0;
-    virtual int zwrocHPZombie() const=0;
+
     sf::Vector2i getSpeedXY();
+    virtual int zwrocHP() const=0;
+    virtual void odejmijHP()=0;
 
 };
 

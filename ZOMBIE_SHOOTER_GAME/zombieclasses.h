@@ -14,8 +14,9 @@ private:
 
 public:
     SmallZombie(sf::Texture &texture_);
-    void odejmijHPZombie();
-    int zwrocHPZombie() const;
+;
+    int zwrocHP() const;
+    void odejmijHP();
 
 };
 
@@ -26,8 +27,9 @@ private:
 
 public:
     MediumZombie(sf::Texture &texture_);
-    void odejmijHPZombie();
-    int zwrocHPZombie() const;
+
+    int zwrocHP() const;
+    void odejmijHP();
 
 };
 
@@ -38,8 +40,9 @@ private:
 
 public:
     BigZombie(sf::Texture &texture_);
-    void odejmijHPZombie();
-    int zwrocHPZombie() const;
+
+    int zwrocHP() const;
+    void odejmijHP();
 
 };
 
