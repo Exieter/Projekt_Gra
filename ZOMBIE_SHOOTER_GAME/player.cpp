@@ -83,15 +83,6 @@ sf::Vector2i Player::getSpeedXY()
     return sf::Vector2i(moveSpeedX,moveSpeedY);
 }
 
-int Player::zwrocHP() const
-{
-    return hpPlayer;
-}
-
-void Player::odejmijHP()
-{
-    hpPlayer=hpPlayer-2;
-}
 
 
 

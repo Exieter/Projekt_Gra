@@ -19,8 +19,7 @@ public:
     sf::Sprite getSpritePlayer() const;
 
     sf::Vector2i getSpeedXY();
-    int zwrocHP() const;
-    void odejmijHP();
+
 
 
 };

@@ -15,6 +15,16 @@ void Graj::animate(const int &moveSpeedX_, const int &moveSpeedY_)
 
 }
 
+int Graj::zwrocHP() const
+{
+    return HP;
+}
+
+void Graj::odejmijHP(const int &ilosc_do_odjecia)
+{
+    HP=HP - ilosc_do_odjecia;
+}
+
 sf::Sprite Graj::getSprite()
 {
     return sprite;

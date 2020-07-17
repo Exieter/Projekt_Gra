@@ -27,9 +27,7 @@ public:
 
     sf::Vector2i getSpeedXY();
 
-    //
-    int zwrocHP() const{return 0;};
-    void odejmijHP(){;};
+
 
 };
 

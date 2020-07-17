@@ -9,40 +9,33 @@
 
 class SmallZombie : public Zombie
 {
-private:
-    int hpSmall = 15;
 
 public:
     SmallZombie(sf::Texture &texture_);
 ;
-    int zwrocHP() const;
-    void odejmijHP();
+
 
 };
 
 class MediumZombie : public Zombie
 {
-private:
-    int hpMedium = 30;
+
 
 public:
     MediumZombie(sf::Texture &texture_);
 
-    int zwrocHP() const;
-    void odejmijHP();
+
 
 };
 
 class BigZombie : public Zombie
 {
-private:
-    int hpBig = 45;
+
 
 public:
     BigZombie(sf::Texture &texture_);
 
-    int zwrocHP() const;
-    void odejmijHP();
+
 
 };
 

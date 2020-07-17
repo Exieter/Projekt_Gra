@@ -26,8 +26,7 @@ public:
     void setZombiePosition();
 
     sf::Vector2i getSpeedXY();
-    virtual int zwrocHP() const=0;
-    virtual void odejmijHP()=0;
+
 
 };
 

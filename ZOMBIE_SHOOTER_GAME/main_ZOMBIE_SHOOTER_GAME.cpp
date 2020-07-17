@@ -221,7 +221,7 @@ sf::Time elapsed = clock.restart();
             bullets[i]->bulletShooted(elapsed);
 
         }
-        //kolizja pocisk - zombie + usuwanie zombie jesli <0 hp
+        //kolizja pocisk - zombie
         for(unsigned i=0; i < bullets.size(); i++)
         {
             bulletSprite = bullets[i]->getSprite();
@@ -231,7 +231,7 @@ sf::Time elapsed = clock.restart();
 
                 if(bulletSprite.getGlobalBounds().intersects(zombieSprite.getGlobalBounds()))
                 {
-                        zombieVector[j]->odejmijHP();
+                        zombieVector[j]->odejmijHP(15);
                 }
  //kolizja zomie -> gracz
                 sf::Clock time_zombie_intersects_player;
@@ -242,9 +242,9 @@ sf::Time elapsed = clock.restart();
                     czas_styku=czas_styku+time_intersection.asSeconds();
                     if(czas_styku>=0.00002)
                     {
-                        player.odejmijHP();                                                    // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        player.odejmijHP(1);
                         czas_styku=0;
-                        std::cout<<player_hp<<std::endl;
+                        //std::cout<<player_hp<<std::endl;
                     }
                 }
 
@@ -273,23 +273,33 @@ sf::Time elapsed = clock.restart();
                 ++j;
             }
         }
-        //usuwanie zombie =<0 hp
-        for(size_t j = 0; j < zombieVector.size(); )
+        //usuwanie zombie jesli za malo hp
+        zombieVector.erase(
+                    std::remove_if(zombieVector.begin(), zombieVector.end(),[&](std::unique_ptr<Zombie> &zombie)
         {
-        auto &zombie = zombieVector[j];;
-            if (zombie->zwrocHP()<=0)
-            {
-                zombieVector.erase(zombieVector.begin()+j);
-            }
-            else
-            {
-                ++j;
-            }
-        }
+                        SmallZombie *smallzombie = dynamic_cast<SmallZombie *>(zombie.get());
+                        if(smallzombie!=nullptr)
+                        {
+                            return zombie->zwrocHP()<=-15;
+                        }
+                        MediumZombie *mediumzombie = dynamic_cast<MediumZombie *>(zombie.get());
+                        if(mediumzombie!=nullptr)
+                        {
+                            return zombie->zwrocHP()<=-30;
+                        }
+                        BigZombie *bigzombie = dynamic_cast<BigZombie *>(zombie.get());
+                        if(bigzombie!=nullptr)
+                        {
+                            return zombie->zwrocHP()<=-45;
+                        }
+
+         }
+                    ),zombieVector.end());
 
 
 
-        if(player_hp<=0)
+//koniec jesli gracz za malo hp
+        if(player_hp<=-200)
         {
              obslugagry.restart(player_hp,zombieVector,bullets);
         }

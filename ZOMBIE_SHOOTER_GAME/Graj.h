@@ -12,6 +12,8 @@
 
 class Graj : public sf::Sprite
 {
+private:
+    int HP=0;
 protected:
     sf::Texture texture;
     sf::Sprite sprite;
@@ -23,8 +25,8 @@ public:
 
     void animate( const int &moveSpeedX_, const int &moveSpeedY_);
     virtual sf::Vector2i getSpeedXY()=0;
-    virtual int zwrocHP() const=0;
-    virtual void odejmijHP()=0;
+    int zwrocHP() const;
+    void odejmijHP(const int &ilosc_do_odjecia);
 
 
 };

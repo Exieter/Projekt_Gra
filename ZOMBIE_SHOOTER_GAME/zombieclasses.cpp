@@ -13,15 +13,6 @@ SmallZombie::SmallZombie(sf::Texture &texture_)
 
 
 
-int SmallZombie::zwrocHP() const
-{
-    return hpSmall;
-}
-
-void SmallZombie::odejmijHP()
-{
-    hpSmall=hpSmall-15;
-}
 
 
 
@@ -40,15 +31,6 @@ MediumZombie::MediumZombie(sf::Texture &texture_)
 
 
 
-int MediumZombie::zwrocHP() const
-{
-    return hpMedium;
-}
-
-void MediumZombie::odejmijHP()
-{
-    hpMedium=hpMedium-15;
-}
 
 
 //big
@@ -62,14 +44,6 @@ BigZombie::BigZombie(sf::Texture &texture_)
 
 }
 
-int BigZombie::zwrocHP() const
-{
-    return hpBig;
-}
 
-void BigZombie::odejmijHP()
-{
-    hpBig=hpBig-15;
-}
 
 
